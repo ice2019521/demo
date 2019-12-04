@@ -49,6 +49,8 @@ public class SpringTest {
      */
     @Test
     public void testRabbitTemplate() {
+        stringRedisTemplate.opsForValue().append("k1","v1");
+
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("mesg", "你好");
         map.put("list", Arrays.asList("123456", "你好", true));

@@ -1,15 +1,20 @@
 package cn;
 
 
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Fun {
     public static void main(String[] args) {
-        String s = "";
-        if (StringUtils.isEmpty(s)) {
-            System.out.println("1");
-        } else {
-            System.out.println("2");
-        }
+        List<String> list = new ArrayList<>();
+        list.add("NGCMTT01");
+        list.add("NGCMTT02");
+        list.add("NGCMTT03");
+        list.add("NGCMTT04");
+        System.out.println(list.toString());
+        System.out.println();
+        System.out.println(StringUtils.join(list.toArray(), ","));
     }
 }
