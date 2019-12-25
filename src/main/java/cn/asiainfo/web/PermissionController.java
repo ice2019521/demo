@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/permission")
 public class PermissionController {
     //打印日志
-    private final static Logger logger = LoggerFactory.getLogger(PermissionController.class);
+    private final Logger logger = LoggerFactory.getLogger(PermissionController.class);
     @Autowired
     PermissionService permissionService;
 
@@ -31,7 +31,7 @@ public class PermissionController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = {"/selectPermissionList"}, method = {RequestMethod.GET})
+    @GetMapping(value = {"/selectPermissionList"})
     public BaseResult selectPermissionList() {
         try {
             return permissionService.selectPermissionList();

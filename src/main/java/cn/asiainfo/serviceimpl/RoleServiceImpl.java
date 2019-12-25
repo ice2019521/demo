@@ -4,6 +4,8 @@ import cn.asiainfo.dao.RoleMapper;
 import cn.asiainfo.result.BaseResult;
 import cn.asiainfo.service.RoleService;
 import cn.asiainfo.web.request.Ids;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleMapper roleMapper;
+    //打印日志
+    private final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     /**
      * 批量删除
@@ -29,11 +33,8 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public BaseResult deleteRoleByIds(Ids ids) throws Exception {
-
         int result = roleMapper.deleteRoleByIds(ids.getIds());
-        System.out.println(result);
-
-
+        logger.info("result= " + result);
         return BaseResult.success();
     }
 }

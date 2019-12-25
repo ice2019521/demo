@@ -6,8 +6,6 @@ import cn.asiainfo.result.BaseResult;
 import cn.asiainfo.result.ErrorCode;
 import cn.asiainfo.service.UserService;
 import cn.asiainfo.web.request.UserVO;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +25,7 @@ import java.util.*;
 @Service
 public class UserServiceImpl implements UserService {
     //打印日志
-    private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     UserMapper userMapper;
@@ -41,11 +39,11 @@ public class UserServiceImpl implements UserService {
     public BaseResult selectUserList() throws Exception {
         try {
             List<User> users = userMapper.selectUserList();
-            if (users == null || users.size() < 1) {
+            if (users == null || users.isEmpty()) {
                 logger.error(ErrorCode.GetErrorInfo + ", 查询User信息");
                 return BaseResult.fail(ErrorCode.GetErrorCode, ErrorCode.GetErrorInfo + ", 查询User信息");
             }
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put("users", users);
 
             logger.info("查询User信息，成功");
@@ -65,11 +63,11 @@ public class UserServiceImpl implements UserService {
     public BaseResult selectUserByInfo(User user) throws Exception {
         try {
             List<User> users = userMapper.selectUserByInfo(user);
-            if (users == null || users.size() < 1) {
+            if (users == null || users.isEmpty()) {
                 logger.error(ErrorCode.GetErrorInfo + ", 根据信息查询User信息");
                 return BaseResult.fail(ErrorCode.GetErrorCode, ErrorCode.GetErrorInfo + ", 根据信息查询User信息");
             }
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put("users", users);
 
             logger.info("根据信息查询User信息，成功");
@@ -121,7 +119,6 @@ public class UserServiceImpl implements UserService {
             int result = userMapper.deleteUserById(list);
 
             logger.info("根据id删除User记录" + result + "条，成功");
-            System.out.println();
             return BaseResult.success();
         } catch (Exception e) {
             logger.error(ErrorCode.DeleteIsErrorInfo + ", 根据id删除User记录");
@@ -131,10 +128,9 @@ public class UserServiceImpl implements UserService {
 
 
     public BaseResult selectUsePage(Integer pageNum, Integer pageSize) {
-        Page<User> page = PageHelper.startPage(pageNum, pageSize);
         List<User> list = userMapper.selectUserList();
-        PageInfo<User> pageInfo = new PageInfo<User>(list);
-        Map<String, Object> map = new HashMap<String, Object>();
+        PageInfo<User> pageInfo = new PageInfo<>(list);
+        Map<String, Object> map = new HashMap<>();
         map.put("list", list);
         map.put("pageInfo", pageInfo);
         return BaseResult.success(map);
@@ -154,7 +150,7 @@ public class UserServiceImpl implements UserService {
                 logger.error(ErrorCode.GetErrorInfo + ", 根据id查询User记录");
                 return BaseResult.fail(ErrorCode.GetErrorCode, ErrorCode.GetErrorInfo + ", 根据id查询User记录");
             }
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put("user", user);
 
             logger.info("根据id查询User记录，成功");

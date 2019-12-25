@@ -25,7 +25,7 @@ import java.util.Map;
 @Service
 public class PermissionServiceImpl implements PermissionService {
     //打印日志
-    private final static Logger logger = LoggerFactory.getLogger(PermissionServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(PermissionServiceImpl.class);
     @Autowired
     PermissionMapper permissionMapper;
 
@@ -39,11 +39,11 @@ public class PermissionServiceImpl implements PermissionService {
     public BaseResult selectPermissionList() throws Exception {
         try {
             List<Permission> permissions = permissionMapper.selectPermissionList();
-            if (permissions == null || permissions.size() < 1) {
+            if (permissions == null || permissions.isEmpty()) {
                 logger.error(ErrorCode.GetErrorInfo + ", 查询Permission记录");
                 return BaseResult.fail(ErrorCode.GetErrorCode, ErrorCode.GetErrorInfo + ", 查询Permission记录");
             }
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put("permissions", permissions);
 
             logger.info("查询Permission记录，成功");

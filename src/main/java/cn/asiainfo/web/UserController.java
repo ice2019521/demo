@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
     //打印日志
-    private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserService userService;
@@ -33,7 +33,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping(value = {"/selectUserByInfo"}, method = {RequestMethod.POST})
+    @PostMapping(value = {"/selectUserByInfo"})
     public BaseResult selectUserByInfo(@RequestBody User user) {
         try {
             if (user == null) {
@@ -52,7 +52,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping(value = {"/selectUserById/{id}"}, method = {RequestMethod.GET})
+    @GetMapping(value = {"/selectUserById/{id}"})
     public BaseResult selectUserById(@PathVariable("id") String id) {
         try {
             if (StringUtils.isEmpty(id)) {
@@ -71,7 +71,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping(value = {"/insertUser"}, method = {RequestMethod.POST})
+    @PostMapping(value = {"/insertUser"})
     public BaseResult insertUser(@RequestBody User user) {
         try {
             if (user == null) {
@@ -90,10 +90,10 @@ public class UserController {
      * @param userVO
      * @return
      */
-    @RequestMapping(value = {"/insertUserList"}, method = {RequestMethod.POST})
+    @PostMapping(value = {"/insertUserList"})
     public BaseResult insertUserList(@RequestBody UserVO userVO) {
         try {
-            if (userVO == null || userVO.getUsers() == null || userVO.getUsers().size() < 1) {
+            if (userVO == null || userVO.getUsers() == null || userVO.getUsers().isEmpty()) {
                 logger.error(ErrorCode.ParaCheckErrorRetInfo + ", 批量插入User数据");
                 return BaseResult.fail(ErrorCode.ParaCheckErrorRetCode, ErrorCode.ParaCheckErrorRetInfo + ", 批量插入User数据");
             }
@@ -109,7 +109,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping(value = {"/updateUserById"}, method = {RequestMethod.PUT})
+    @PutMapping(value = {"/updateUserById"})
     public BaseResult updateUserById(@RequestBody User user) {
         try {
             if (user == null || user.getId() == null) {
@@ -128,7 +128,7 @@ public class UserController {
      * @param ids
      * @return
      */
-    @RequestMapping(value = {"/deleteUserById/{ids}"}, method = {RequestMethod.GET})
+    @GetMapping(value = {"/deleteUserById/{ids}"})
     public BaseResult deleteUserById(@PathVariable("ids") String ids) {
         try {
             if (StringUtils.isEmpty(ids)) {
@@ -146,7 +146,7 @@ public class UserController {
      * 查询User信息
      * @return
      */
-    @RequestMapping(value = {"/selectUserList"}, method = {RequestMethod.GET})
+    @GetMapping(value = {"/selectUserList"})
     public BaseResult selectUserList() {
         try {
             return userService.selectUserList();
